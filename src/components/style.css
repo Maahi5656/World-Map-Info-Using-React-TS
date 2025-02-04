@@ -1,0 +1,199 @@
+.App {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* zoom: 1.25; */
+} 
+
+.earth{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 0 15px;
+    /* overflow-x: hidden; */
+}
+
+.earth svg#allSvg{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 15%;
+    top: 2.5%;
+}
+
+svg path{
+    fill: #e2c135;
+}
+
+#name{
+    position: relative;
+    background-color: white;
+    width: fit-content;
+    opacity: 0;
+    border-radius: 5px;
+    border: 3px solid pink;
+    padding: 5px;
+    font-size: 1.5rem;
+}
+
+#time{
+    /* position: absolute; */
+    background-color: white;
+    width: fit-content;
+    /* opacity: 0; */
+    border-radius: 5px;
+    border: 3px solid pink;
+    padding: 5px;
+    font-size: 1.5rem; 
+}
+
+svg path{
+    position: relative;
+    cursor: pointer;
+}
+  
+svg path:hover{
+    fill: pink;
+}
+/* .earth{
+    background-image: url('../../public/img/world-map.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: calc(100vw - 5px);
+    height: calc(100vh - 5px);
+    position: relative;
+    top: 0;
+} */
+
+.popUpDiv{
+    width: 280px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #d8e2e2;
+    position: absolute;
+    top: 1;
+    z-index: 1;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.popUpDiv.open{
+    
+        position: absolute;
+        top: 10;
+        left: 10;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        /*pointerEvents: "none", // Avoid blocking mouse events
+        whiteSpace: "nowrap",*/
+      
+    /* transform: translateY(-30px); */
+    opacity: 1;
+}
+
+/* Modal Style */
+
+.modalBackground {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+  
+.modalContainer {
+    width: calc(100vw - 50%);
+    /* height: 500px; */
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    text-align: left;
+}
+
+.modalContainer ul li{
+    list-style-type: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+  
+.modalContainer .title {
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modalBody{
+    margin-top: 15px;
+}
+
+.modalBody h2{
+    margin-bottom: 10px;
+}
+
+.modalTitle img{
+    border: 2px solid #000;
+}
+  
+.titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+  
+.titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+  
+.modalContainer .body {
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    text-align: center;
+}
+  
+.modalContainer .footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.modalContainer .footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+  
+#cancelBtn {
+    background-color: crimson;
+}
+
+/*-----*/
