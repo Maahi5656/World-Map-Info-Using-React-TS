@@ -130,6 +130,7 @@ const WorldMap = () => {
             <SearchResultList searchResults={ searchResults } />
         </div> */}
     <div className="earth">
+        <p>Click On Each Countries in the Map to know more details... </p>
             <svg id="allSvg" stroke="#CE8F84" version='1.2'>
 
   <path
