@@ -9,6 +9,9 @@ import './style.css'
 
 import CountryModal from './CountryModal'
 import PopUpText from './PopUpText'
+import SearchBar from './SearchBar'
+import SearchResultList from './SearchResultList'
+
 
 export interface CountryInfo{
     name?: {
@@ -42,6 +45,8 @@ const WorldMap = () => {
         y: 0,
         text: ""
     });
+
+    const [searchResults, setSearchResults] = useState<CountryInfo[]|null>([]);
 
     const fetchSelectedCountryData = async (country_name: string) => {
         
@@ -119,7 +124,11 @@ const WorldMap = () => {
 
 
     return (
-        
+        <>
+        {/* <div className='search-bar-container'>
+            <SearchBar searchResults={ setSearchResults } />
+            <SearchResultList searchResults={ searchResults } />
+        </div> */}
     <div className="earth">
             <svg id="allSvg" stroke="#CE8F84" version='1.2'>
 
@@ -1190,7 +1199,7 @@ const WorldMap = () => {
             
         </div>
     
-        
+        </>
         
     )
 }
