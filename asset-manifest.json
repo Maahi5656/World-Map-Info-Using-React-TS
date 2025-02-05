@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/World-Map-Info-Using-React-TS/static/css/main.f9bcc784.css",
+    "main.js": "/World-Map-Info-Using-React-TS/static/js/main.caab2c81.js",
+    "index.html": "/World-Map-Info-Using-React-TS/index.html",
+    "main.f9bcc784.css.map": "/World-Map-Info-Using-React-TS/static/css/main.f9bcc784.css.map",
+    "main.caab2c81.js.map": "/World-Map-Info-Using-React-TS/static/js/main.caab2c81.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f9bcc784.css",
+    "static/js/main.caab2c81.js"
+  ]
+}
