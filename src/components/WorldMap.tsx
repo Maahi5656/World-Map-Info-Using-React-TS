@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { useState } from 'react'
 import { MouseEvent } from 'react'
 import { FC } from 'react'
@@ -13,32 +13,61 @@ import SearchBar from './SearchBar'
 import SearchResultList from './SearchResultList'
 
 
-export interface CountryInfo{
-    name?: {
-        common: string,
-        official: string
-    };
-    capital?: string[]|any;
-    languages?: string[]|any;
-    population?: number;
-    continents?: string[]|any;
-    flags?: {
-        png: string
-    };
-    currencies?: {
-        [key: string]: {
-            name: string;
-            symbol: string;
-        }
-    };
-    region?: string;
-    subregion?: string;
+// export interface CountryInfo{
+//     name?: {
+//         common: string,
+//         official: string
+//     };
+//     capital?: string[]|any;
+//     languages?: string[]|any;
+//     population?: number;
+//     continents?: string[]|any;
+//     flags?: {
+//         png: string
+//     };
+//     currencies?: {
+//         [key: string]: {
+//             name: string;
+//             symbol: string;
+//         }
+//     };
+//     region?: string;
+//     subregion?: string;
+// }
+
+export interface CountryInfo {
+   name?: string;
+   alpha2Code?: string;
+   alpha3Code?: string;
+   capital?: string;
+   region?: string;
+   subregion?: string;
+   population?: number;
+   area?: number;
+
+   currencies?: {
+      code: string;
+      name: string;
+      symbol: string;
+   }[];
+
+   languages?: {
+      iso639_1: string;
+      name: string;
+   }[];
+
+   callingCodes?: string[];
+   topLevelDomain?: string[];
+   borders?: string[];
+   flag?: string;
 }
+
 
 const WorldMap = () => {
 
     const [countryData, setCountryData] = useState<CountryInfo|null>(null);
     const [openModal, setOpenModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [openPopUp, setOpenPopUp] = useState({
         visible: false,
         x: 0,
@@ -49,89 +78,86 @@ const WorldMap = () => {
     const [searchResults, setSearchResults] = useState<CountryInfo[]|null>([]);
 
     const fetchSelectedCountryData = async(country_name: string)=>{
+
+      setLoading(true)
         
-        try{
-//             const URL = `https://api.restcountries.com/countries/v5?q=${country_name}&pretty=1" \
-//   -H "Authorization: Bearer rc_live_7103cce106f149c2bd2a0f02343306d4` response.data &&  
-            // const url = `https://restcountries.com/v3.1/name/${country_name}?fullText=true`
-            // const response = await axios.get('https://api.restcountries.com/countries/v5',
-            //    {
-            //       params: {
-            //          q: country_name,
-            //          pretty: 1
-            //       },
-            //       headers: {
-            //          Authorization: 'Bearer rc_live_7103cce106f149c2bd2a0f02343306d4'
-            //       }
-            //    }
-            // );
-            console.log("Country Name", country_name);
-
-            const response = await fetch(
-                `https://api.restcountries.com/countries/v5?q=${country_name}`,
-                {
-                    headers: {
-                        Authorization: 'Bearer rc_live_7103cce106f149c2bd2a0f02343306d4'
-                    }
-                }
-            );
-
-            console.log("Response", response);
-
-
-            const data = await response.json();
-
-            console.log("Data", data);
-         
-            if (data?.data?.objects?.length > 0) {
-               setCountryData(data.data.objects[0]);
-            } 
-            else{
-               console.log("No Data Found");
-               setCountryData(null);
-            }
-
-        }catch(error){
-            console.log(error);
-            throw error;
+      try{
+         // const url = `https://restcountries.com/v3.1/name/${country_name}?fullText=true`
+         // const response = await axios.get('https://api.restcountries.com/countries/v5',
+         //    {
+         //       params: {
+         //          q: country_name,
+         //          pretty: 1
+         //       },
+         //       headers: {
+         //          Authorization: 'Bearer rc_live_7103cce106f149c2bd2a0f02343306d4'
+         //       }
+         //    }
+         // );
+         console.log("Country Name", country_name);
+         // const response = await fetch(
+         //     `https://api.restcountries.com/countries/v5?q=${country_name}`,
+         //     {
+         //         headers: {
+         //             Authorization: 'Bearer rc_live_7103cce106f149c2bd2a0f02343306d4'
+         //         }
+         //     }
+         // );
+         const response = await fetch(`https://countries.dev/name/${country_name}`);
+         console.log("Response", response);
+         const data = await response.json();
+         console.log("Data", data);
+      
+         if (data && data.length > 0) {
+            setCountryData(data[0]);
+         } 
+         else{
+            console.log("No Data Found");
             setCountryData(null);
-        }
+         }
+
+      }catch(error){
+         console.log(error);
+         throw error;
+      }finally{
+         setLoading(false);
+      }
     }
 
-    const MouseHoverHandler = (e: MouseEvent) => {
-        const { clientX, clientY } = e;
-        const countryName = e.currentTarget.id;
+      const MouseHoverHandler = (e: MouseEvent) => {
+         const { clientX, clientY } = e;
+         const countryName = e.currentTarget.id;
         
-        // let target = e.currentTarget;
+         // let target = e.currentTarget;   
+         // if(target.id){
+         //     countryName = target.id;
+         // }else if(target.className){
+         //     countryName = target.className;
+         // }else{
+         //     countryName = "";
+         // }
 
-        // if(target.id){
-        //     countryName = target.id;
-        // }else if(target.className){
-        //     countryName = target.className;
-        // }else{
-        //     countryName = "";
-        // }
-
-        setOpenPopUp({
+         setOpenPopUp({
             visible: true,
             x: clientX,
             y: clientY,
             text: countryName
-        });
+         });
 
     }
 
-    const MouseLeaveHandler = (e: MouseEvent) => {
-        setOpenPopUp({
+   const MouseLeaveHandler = (e: MouseEvent) => {
+         setOpenPopUp({
             visible: false,
             x: 0,
             y: 0,
             text: ""
-        });
+         });
     }
 
-    const MouseClickHandler = (e: MouseEvent) => {
-        let countryName: string = e.currentTarget.id;
+   const MouseClickHandler = (e: MouseEvent) => {
+
+      let countryName: string = e.currentTarget.id;
         
         // let target = e.currentTarget;
 
@@ -142,14 +168,24 @@ const WorldMap = () => {
         // }else{
         //     countryName = "";
         // }
+      setCountryData(null);
+      setOpenModal(true);   
+      fetchSelectedCountryData(countryName);
+   
 
-        fetchSelectedCountryData(countryName);
-        setOpenModal(true);
+      
     }
 
-    const languages = countryData?.languages ? Object.values(countryData.languages).join(", ") : "No Languages Available";
-    const capital = countryData?.capital ? Object.values(countryData.capital).join(", ") : "";
-    const continents = countryData?.continents ? Object.values(countryData.continents).join(", "): "";
+   // const languages = countryData?.languages ? Object.values(countryData.languages).join(", ") : "No Languages Available";
+   // const capital = countryData?.capital ? Object.values(countryData.capital).join(", ") : "";
+   // const continents = countryData?.continents ? Object.values(countryData.continents).join(", "): "";
+
+   const languages = countryData?.languages?.map((language) => language.name).join(", ") || "No Languages Available";
+   const capital = countryData?.capital || "No Capital Available";
+   const region = countryData?.region || "No Region Available";
+   const subregion = countryData?.subregion || "No Subregion Available";
+
+   const flag = `https://flagcdn.com/${countryData?.alpha2Code?.toLowerCase()}.svg`
 
 
     return (
@@ -1190,48 +1226,56 @@ const WorldMap = () => {
      id="Zimbabwe" onMouseEnter={(e)=>MouseHoverHandler(e)} onMouseLeave={(e)=>MouseLeaveHandler(e)} onClick={(e)=>MouseClickHandler(e)} />
 </svg>
 
-        {
-            countryData && openModal && (
-                <CountryModal 
-                    name={ countryData.name } 
-                    capital={ capital } 
-                    languages={ languages } 
-                    population={ countryData.population } 
-                    continents={ continents }
-                    flags={ countryData.flags }  
-                    currencies={ countryData.currencies }
-                    region={ countryData.region }
-                    subregion={ countryData.subregion }
-                    closeModal={ setOpenModal }
-                />
+         {   
+
+            loading && (
+               <div className="modalBackground">
+                   <div className="modalContainer">
+                       <div className="spinner"></div>
+                       <p>Loading...</p>
+                   </div>
+               </div>
+            )
+         }
+         {
+            countryData && !loading && openModal && (
+               <CountryModal 
+                  name={ countryData.name } 
+                  capital={ countryData.capital } 
+                  languages={ countryData.languages } 
+                  population={ countryData.population } 
+                  flag={flag}
+                  currencies={countryData.currencies}
+                  region={countryData.region}
+                  subregion={countryData.subregion}
+                  closeModal={ setOpenModal }
+               />
             )
         }
 
-{
-                    openPopUp.visible ? (
-<div
-          style={{
-            position: "absolute",
-            top: openPopUp.y-15,
-            left: openPopUp.x-15,
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
-            color: "white",
-            padding: "5px 10px",
-            borderRadius: "5px",
-            pointerEvents: "none", // Avoid blocking mouse events
-            whiteSpace: "nowrap",
-          }}
-        >
-            {openPopUp.text}
-        </div>                        
-                    ): ""
-                }
+         {
+            openPopUp.visible ? (
+            <div
+               style={{
+                 position: "absolute",
+                 top: openPopUp.y-15,
+                 left: openPopUp.x-15,
+                 backgroundColor: "rgba(0, 0, 0, 0.7)",
+                 color: "white",
+                 padding: "5px 10px",
+                 borderRadius: "5px",
+                 pointerEvents: "none", // Avoid blocking mouse events
+                 whiteSpace: "nowrap",
+               }}
+            >{openPopUp.text}</div>                        
+            ): ""
+         }
             
-        </div>
+      </div>
     
-        </>
+      </>
         
-    )
+   )
 }
 
 export default WorldMap
