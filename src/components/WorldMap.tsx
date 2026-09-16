@@ -48,18 +48,47 @@ const WorldMap = () => {
 
     const [searchResults, setSearchResults] = useState<CountryInfo[]|null>([]);
 
-    const fetchSelectedCountryData = async (country_name: string) => {
+    const fetchSelectedCountryData = async(country_name: string)=>{
         
         try{
-            const url = `https://restcountries.com/v3.1/name/${country_name}?fullText=true`
-            const response = await axios.get(url);
+//             const URL = `https://api.restcountries.com/countries/v5?q=${country_name}&pretty=1" \
+//   -H "Authorization: Bearer rc_live_7103cce106f149c2bd2a0f02343306d4` response.data &&  
+            // const url = `https://restcountries.com/v3.1/name/${country_name}?fullText=true`
+            // const response = await axios.get('https://api.restcountries.com/countries/v5',
+            //    {
+            //       params: {
+            //          q: country_name,
+            //          pretty: 1
+            //       },
+            //       headers: {
+            //          Authorization: 'Bearer rc_live_7103cce106f149c2bd2a0f02343306d4'
+            //       }
+            //    }
+            // );
+            console.log("Country Name", country_name);
 
-            if(response.data && response.data.length > 0){
-                setCountryData(response.data[0]);
-                console.log(response.data[0]);
-            }else{
-                console.log("No Data Found");
-                setCountryData(null);
+            const response = await fetch(
+                `https://api.restcountries.com/countries/v5?q=${country_name}`,
+                {
+                    headers: {
+                        Authorization: 'Bearer rc_live_7103cce106f149c2bd2a0f02343306d4'
+                    }
+                }
+            );
+
+            console.log("Response", response);
+
+
+            const data = await response.json();
+
+            console.log("Data", data);
+         
+            if (data?.data?.objects?.length > 0) {
+               setCountryData(data.data.objects[0]);
+            } 
+            else{
+               console.log("No Data Found");
+               setCountryData(null);
             }
 
         }catch(error){
@@ -130,6 +159,7 @@ const WorldMap = () => {
             <SearchResultList searchResults={ searchResults } />
         </div> */}
     <div className="earth">
+        <p>Click On Each Countries in the Map to know more ddetails... </p>
             <svg id="allSvg" stroke="#CE8F84" version='1.2'>
 
   <path
