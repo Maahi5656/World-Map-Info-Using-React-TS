@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/World-Map-Info-Using-React-TS/static/css/main.f9bcc784.css",
-    "main.js": "/World-Map-Info-Using-React-TS/static/js/main.caab2c81.js",
+    "main.css": "/World-Map-Info-Using-React-TS/static/css/main.7b9b56cb.css",
+    "main.js": "/World-Map-Info-Using-React-TS/static/js/main.a16500c5.js",
     "index.html": "/World-Map-Info-Using-React-TS/index.html",
-    "main.f9bcc784.css.map": "/World-Map-Info-Using-React-TS/static/css/main.f9bcc784.css.map",
-    "main.caab2c81.js.map": "/World-Map-Info-Using-React-TS/static/js/main.caab2c81.js.map"
+    "main.7b9b56cb.css.map": "/World-Map-Info-Using-React-TS/static/css/main.7b9b56cb.css.map",
+    "main.a16500c5.js.map": "/World-Map-Info-Using-React-TS/static/js/main.a16500c5.js.map"
   },
   "entrypoints": [
-    "static/css/main.f9bcc784.css",
-    "static/js/main.caab2c81.js"
+    "static/css/main.7b9b56cb.css",
+    "static/js/main.a16500c5.js"
   ]
 }
