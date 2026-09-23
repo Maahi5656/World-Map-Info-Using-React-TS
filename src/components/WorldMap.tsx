@@ -103,7 +103,7 @@ const WorldMap = () => {
          //         }
          //     }
          // );
-         const response = await fetch(`https://countries.dev/name/${country_name}`);
+         const response = await fetch(`https://countries.dev/name/${encodeURIComponent(country_name)}`);
          console.log("Response", response);
          const data = await response.json();
          console.log("Data", data);
